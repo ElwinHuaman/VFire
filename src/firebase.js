@@ -10,4 +10,5 @@ const app = initializeApp({
   });
 
   export const db = app.database();
+  export const borrowsRef = db.ref('borrows');
   export const namesRef = db.ref('names');

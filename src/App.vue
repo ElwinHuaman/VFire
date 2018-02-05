@@ -3,55 +3,70 @@
     <div class="container">
       <div class="row">
         <div class="twelve columns">
-          <!-- <form> -->            
+          <form>            
             <h5 class="docs-header">{{device}}</h5>
             <p>If you would like to borrow a device from the RIC, please fill out the form below. Once you return the device, write the date
 returned and feel free to check out another device. Please treat the device kindly, so that we can all enjoy them</p>
             <div class="row">
               <div class="six columns">
                 <label>Names</label>
-                <input class="u-full-width" type="text" v-model="name" placeholder="E.g. Elwin Huaman...">
+                <input class="u-full-width" id="name" type="text" v-model="name" placeholder="E.g. Elwin Huaman..." required>
                 <label>Date</label>                
-                <input class="u-full-width" type="date" v-model="date"/>
-                <label for="exampleRecipientInput">Reason for Borrow</label>
-                <select class="u-full-width" v-model="selected">
+                <input class="button primary" type="datetime-local" v-model="date" required/>
+                <label>Reason for Borrow</label>
+                <select class="u-full-width" v-model="selected" required>
                   <option disabled value="">Please select one</option>
                   <option value="Borrow">I am Borrowing(Borrow)</option>
                   <option value="Return">I am Returning(Return)</option>
                   <option value="Request">I will Borrow(Request)</option>
                 </select>
-                <label for="exampleMessage">Comments</label>
+                <label>Comments</label>
                 <textarea class="u-full-width" v-model="comments" placeholder="Why I need the Device?…"></textarea>
               </div>             
               <div class="six columns">
                 <label>Your Location</label>            
                 <div id="myMap">
-                  <button @click="getLocation()">See my Location</button>
+                  <input type="text" class="u-full-width" @click="getLocation()" placeholder="Get my current location" required>
                   <label >{{errorMessage}}</label>
                 </div>
               </div>
             </div>                        
             <label class="example-send-yourself-copy">
-              <input type="checkbox" id="checkbox" v-model="checked">
+              <input type="checkbox" id="checkbox" v-model="checked" required>
               <span class="label-body">I have read and agree to the Terms</span>
             </label>
-            <input class="button-primary" @click="submitBorrow()" type="submit" value="Submit">
-          <!-- </form> -->
+            <button class="button-primary" @click="submitBorrow()" type="submit" value="Submit">Submit</button>            
+          </form>
         </div>
       </div>
-    </div>    
-    <div>
-      <label for="exampleEmailInput">Name:</label>
-      <input type="text" v-model="name"/>
-      <label>Last Name</label>
-      <input type="text" v-model="date"/>
-      <button @click="submitBorrow()">Borrow</button>
-    </div>
-    <div>
-      <ul>
-        <li v-for="personName of names" 
-        v-bind:key="personName['.key']">{{personName.name}} {{personName.lastName}}</li>
-      </ul>
+      <div class="row">
+        <div class="twelve columns">
+          <table class="u-full-width">
+            <thead>
+              <tr>
+                <th>Device</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Request</th>
+                <th>Comments</th>
+                <th>Location</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="devices of borrows" v-bind:key="devices['.key']">
+                <td>{{devices.device}}</td>
+                <td>{{devices.name}}</td>
+                <td>{{devices.date}}</td>
+                <td>{{devices.selected}}</td>
+                <td>{{devices.comments}}</td>
+                <td>
+                  <a :href="'https://www.google.com/maps/?q='+devices.location.lat+','+devices.location.lng" target="_blanck">View map</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -60,6 +75,7 @@ returned and feel free to check out another device. Please treat the device kind
 import GoogleMapsLoader from 'google-maps';
 import './css/skeleton.css';
 import { namesRef } from './firebase';
+import { borrowsRef } from './firebase'; 
 export default {
   data () {
     return {
@@ -77,12 +93,18 @@ export default {
   },
 //FIREBASE CONNECTION
   firebase: {
-    names: namesRef
+    names: namesRef,
+    borrows: borrowsRef
   },
 //METHODS OF THE PAGE
   methods: {
     submitBorrow(){
-      namesRef.push({name: this.name, lastName: this.lastName, edit: false})
+      if(this.device!='' && this.name!='' && this.date!= '' && this.selected!='' && this.checked!=''&&this.currentLocation.lat!=0&&this.currentLocation.lng!=0){
+        borrowsRef.push({device: this.device, name: this.name, date: this.date, selected: this.selected, comments: this.comments, location:this.currentLocation, checked:this.checked});
+      }else{
+        console.log("Full fill the form");
+      }
+      
     },
     getLocation(){
       if(navigator.geolocation){
