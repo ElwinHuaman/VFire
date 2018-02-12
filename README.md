@@ -21,5 +21,5 @@ Some preview of the simple systems is:
 
 <p align="center">
   <img src="https://github.com/Elwinlhq/VFire/blob/master/src/img/Borrow1.JPG" width="350"/>
-  <img src=https://github.com/Elwinlhq/VFire/blob/master/src/img/Borrow2.JPG" width="350"/>
+  <img src="https://github.com/Elwinlhq/VFire/blob/master/src/img/Borrow2.JPG" width="350"/>
 </p>
