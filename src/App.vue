@@ -3,10 +3,16 @@
     <div class="container">
       <div class="row">
         <div class="twelve columns">
-          <form>            
-            <h5 class="docs-header">{{device}}</h5>
-            <p>If you would like to borrow a device from the RIC, please fill out the form below. Once you return the device, write the date
-returned and feel free to check out another device. Please treat the device kindly, so that we can all enjoy them</p>
+          <div class="row docs-section-examples">
+            <div class="six columns">              
+              <h4 class="docs-header">Camera, terms of use</h4>
+              <p class="example-description">If you would like to borrow a device from the RIC, please fill out the form below. Once you return the device, write the date returned and feel free to check out another device. Please treat the device kindly, so that we can all enjoy them.</p>
+            </div>
+            <div class="six columns">
+              <img class="example-screenshot" src="src/img/camera.png">
+            </div>
+          </div>
+          <form>                        
             <div class="row">
               <div class="six columns">
                 <label>Names</label>
