@@ -20,6 +20,6 @@ For detailed explanation on how things work, consult the [docs for vue-loader](h
 Some preview of the simple systems is:
 
 <p align="center">
-  <img src="https://github.com/Elwinlhq/VFire/blob/master/src/img/Borrow1.JPG" width="350"/>
-  <img src="https://github.com/Elwinlhq/VFire/blob/master/src/img/Borrow2.JPG" width="350"/>
+  <img src="https://github.com/Elwinlhq/VFire/blob/master/src/img/Borrow1.JPG" width="550"/>
+  <img src="https://github.com/Elwinlhq/VFire/blob/master/src/img/Borrow2.JPG" width="550"/>
 </p>
